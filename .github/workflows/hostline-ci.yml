@@ -1,0 +1,30 @@
+name: Hostline CI
+
+on:
+  pull_request:
+    paths:
+      - "lib/**"
+      - "tests/**"
+      - "supabase/**"
+      - "package.json"
+      - "tsconfig.json"
+      - "vitest.config.ts"
+      - ".github/workflows/hostline-ci.yml"
+  push:
+    branches:
+      - "feature/hostline-text-v1"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: "package.json"
+      - run: npm install --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm test
