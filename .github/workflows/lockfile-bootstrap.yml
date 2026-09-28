@@ -21,7 +21,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: "npm"
       - name: Resolve dependencies and create lockfile
         run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
       - name: Pin direct dependencies to resolved versions
