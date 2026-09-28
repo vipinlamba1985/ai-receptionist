@@ -8,10 +8,15 @@ const webhookBaseUrl = z
   .refine(
     (value) => {
       const url = new URL(value);
-      return url.pathname === "/" && !url.search && !url.hash;
+      return (
+        url.protocol === "https:" &&
+        url.pathname === "/" &&
+        !url.search &&
+        !url.hash
+      );
     },
     {
-      message: "TWILIO_WEBHOOK_BASE_URL must be a public origin with no path, query, or fragment"
+      message: "TWILIO_WEBHOOK_BASE_URL must be an HTTPS origin with no path, query, or fragment"
     }
   )
   .optional();
