@@ -54,6 +54,18 @@ describe("parseHostlineEnv", () => {
         NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
         SUPABASE_SERVICE_ROLE_KEY: "service-role-test-only"
       })
-    ).toThrow(/public origin/);
+    ).toThrow(/HTTPS origin/);
+  });
+
+  it("requires HTTPS for the production Twilio webhook origin", () => {
+    expect(() =>
+      parseHostlineEnv({
+        SIMULATION: "false",
+        ...completeTwilio,
+        TWILIO_WEBHOOK_BASE_URL: "http://hostline.example.com",
+        NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
+        SUPABASE_SERVICE_ROLE_KEY: "service-role-test-only"
+      })
+    ).toThrow(/HTTPS origin/);
   });
 });
