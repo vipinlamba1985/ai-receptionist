@@ -24,6 +24,15 @@ describe("Phase 2 missed-call claim migration", () => {
     );
   });
 
+  it("uses the explicit customer uniqueness constraint for upsert", () => {
+    expect(migration).toMatch(
+      /on conflict on constraint customers_business_id_phone_e164_key/i
+    );
+    expect(migration).not.toMatch(
+      /on conflict \(business_id, phone_e164\)/i
+    );
+  });
+
   it("deduplicates CallSid before queueing the recovery SMS", () => {
     expect(migration).toMatch(/where ce\.call_sid = p_call_sid/i);
     expect(migration).toMatch(/'duplicate'::text/i);
