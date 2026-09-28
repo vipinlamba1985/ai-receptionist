@@ -3,16 +3,19 @@ name: Hostline CI
 on:
   pull_request:
     paths:
+      - "app/**"
       - "lib/**"
       - "tests/**"
       - "supabase/**"
       - "package.json"
+      - "package-lock.json"
       - "tsconfig.json"
       - "vitest.config.ts"
       - ".github/workflows/hostline-ci.yml"
   push:
     branches:
       - "feature/hostline-text-v1"
+      - "feature/hostline-text-v1-phase-2"
 
 jobs:
   test:
