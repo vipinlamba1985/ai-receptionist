@@ -93,7 +93,7 @@ begin
     p_from_e164,
     pg_catalog.now()
   )
-  on conflict (business_id, phone_e164)
+  on conflict on constraint customers_business_id_phone_e164_key
   do update
     set updated_at = excluded.updated_at
   returning *
